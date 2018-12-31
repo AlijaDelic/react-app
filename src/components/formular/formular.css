@@ -1,0 +1,72 @@
+.tbl-formular {
+  width: 100%;
+  margin-top: 1rem;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.tbl-formular-cell {
+}
+
+.formular-input {
+  width: 80%;
+  font-size: 1rem;
+  padding: 0.3rem;
+  margin: 0.4rem;
+  text-align: center;
+}
+
+.formular-select {
+  font-size: 1rem;
+  padding: 0.3rem;
+}
+
+.tbl-formular-render {
+  width: 100%;
+  text-align: center;
+  margin-top: 1.2rem;
+  align-content: center;
+}
+.tbl-formular-render-row {
+  margin-top: 1.2rem;
+}
+.tbl-formular-render-cell > input {
+  margin: 0.4rem;
+  font-size: 1.1rem;
+}
+
+.tbl-formular-render-cell > input {
+  margin: 0.2rem;
+  padding: 0.3rem;
+  border-radius: 0.4rem;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.tbl-formular-render-cell > button {
+  text-align: center;
+  margin: 1.5rem 0;
+  padding: 0.2rem 3.2rem;
+  background: rgb(72, 187, 72);
+  color: rgb(65, 62, 62);
+  border-color: rgb(65, 62, 62);
+  font-weight: bold;
+}
+
+.tbl-versions-res {
+  text-align: center;
+  width: 70%;
+  margin-top: 1.5rem;
+  font-size: 1.2rem;
+}
+
+.tbl-versions-row {
+  margin: 0;
+  padding: 0;
+}
+
+.right {
+  text-align: center;
+  border-bottom: 1px solid grey;
+  font-weight: bold;
+}

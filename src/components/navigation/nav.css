@@ -1,0 +1,21 @@
+.nav {
+  background: black;
+  color: white;
+  border-radius: 1rem;
+  display: grid;
+}
+
+.nav-list {
+  text-align: center;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.nav-item {
+  list-style-type: none;
+}
+
+.nav-item:hover {
+  cursor: pointer;
+  color: grey;
+}
