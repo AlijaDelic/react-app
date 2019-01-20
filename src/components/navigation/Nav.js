@@ -1,22 +1,28 @@
 import React, { Component } from "react";
-import "./nav.css";
 
 class Nav extends Component {
-  state = {};
+  constructor(props) {
+    super(props);
+    this.state = {
+      links: ["Admin", "Formular"]
+    };
+  }
+
   render() {
-    const { links } = this.props;
-    const { handleNav } = this.props;
+    const { handleNav, activeIndex } = this.props;
     return (
       <nav className="nav">
         <ul className="nav-list">
-          {links.map(link => {
+          {this.state.links.map((link, index) => {
             return (
               <li
-                key={link}
+                key={index}
                 onClick={() => {
-                  handleNav(link);
+                  handleNav(link, index);
                 }}
-                className="nav-item"
+                className={
+                  activeIndex === index ? "nav-item active" : "nav-item"
+                }
               >
                 {link}
               </li>

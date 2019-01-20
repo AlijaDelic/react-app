@@ -1,3 +1,247 @@
 * {
   font-family: "Montserrat", sans-serif;
 }
+
+body {
+  padding: 0;
+}
+
+.nav {
+  background: rgba(210, 211, 211, 0.404);
+  padding: 0.2rem, 0, 0, 0;
+  display: block;
+  color: rgb(75, 74, 74);
+  overflow: hidden;
+  font-size: 1.3rem;
+  border-bottom: 1.5px solid rgba(117, 113, 113, 0.52);
+}
+.nav-list {
+  display: inline;
+  list-style-type: none;
+  float: left;
+  margin-left: 0;
+  padding-left: 0.3rem;
+}
+.nav-item {
+  display: inline;
+  margin: 0.3rem;
+  padding: 1.1rem;
+  width: 100px;
+  border: 1px solid transparent;
+  border-bottom: 0;
+  padding: 1.5rem;
+  padding-top: 0.7rem;
+  margin: 0.3rem;
+}
+
+.nav-item:hover {
+  cursor: pointer;
+}
+.active {
+  background: rgba(245, 245, 245, 0.842);
+  border: 1px solid rgb(194, 191, 191);
+  border-bottom: 0;
+  border-top-left-radius: 0.3rem;
+  border-top-right-radius: 0.3rem;
+}
+.tbl-formular-render {
+  padding: 1rem;
+}
+.tbl-search,
+.tbl-formular {
+  height: 60px;
+  margin-top: 1.4rem;
+  background: rgba(4, 165, 52, 0.103);
+  width: 100%;
+  font-size: 1.1rem;
+  text-align: center;
+  padding: 0.6rem;
+  border-top: 1px solid gray;
+}
+
+button {
+  width: 100%;
+  padding: 0.4rem;
+  font-size: 0.9rem;
+  color: #fff;
+  border-radius: 0.25rem;
+}
+
+.btn-search,
+.btn-load {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+input:focus {
+  outline: none;
+  text-align: center;
+  padding: 0.45rem;
+  font-size: 0.9rem;
+  border-radius: 0.4rem;
+  border-width: 0.3px;
+}
+input {
+  outline: none;
+  text-align: center;
+  padding: 0.45rem;
+  width: 90%;
+  font-size: 0.9rem;
+  border-radius: 0.4rem;
+  border-width: 0.3px;
+}
+.search-input {
+  border: 0.5px solid transparent;
+}
+.search-input:focus {
+  border: 0.5px solid #007bff;
+}
+select {
+  text-align: center;
+  width: 90%;
+  padding: 0.4rem;
+  font-size: 0.9rem;
+  border-radius: 0.4rem;
+  border-width: 0.3px;
+}
+select:active {
+  outline: none;
+}
+table {
+  border-radius: 0.3rem;
+}
+.tbl-admin-results {
+  border-collapse: collapse;
+  margin-top: 1rem;
+  font: 0.9rem;
+  width: 100%;
+  text-align: center;
+  align-content: center;
+  background: rgba(139, 139, 137, 0.5);
+}
+.tbl-row-admin:first-child {
+  height: 60px;
+  background: rgb(42, 40, 40);
+  color: white;
+  border-top-left-radius: 0.3rem;
+}
+.tbl-row-admin > td {
+  height: 50px;
+  padding-top: 0.9rem;
+  vertical-align: top;
+  vertical-align: text-bottom;
+}
+
+.fas {
+  color: green;
+  font-size: 1.9rem;
+  padding: 0 0.3rem;
+}
+
+i:hover {
+  cursor: pointer;
+}
+
+.extra-tbl-row {
+  width: 100%;
+  display: block;
+}
+
+.save {
+  width: 30%;
+  background-color: #012e07c5;
+  border-color: #012e07;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+}
+.update {
+  width: 30%;
+  background-color: #007bff;
+  border-color: #007bff;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+}
+.fa-check {
+  color: red;
+}
+
+.tbl-formular-render {
+  margin-top: 1rem;
+  width: 100%;
+  text-align: center;
+  font-size: 1.3rem;
+  background: #e6ebf171;
+}
+.element {
+  width: 100%;
+  display: inline-table;
+  margin: 1rem 0 0 0;
+  border-top: 0.5px solid rgba(194, 187, 187, 0.349);
+  padding: 1rem 0;
+  text-align: center;
+}
+.radios {
+  display: absolute;
+  border: 0.5px solid rgba(194, 191, 191, 0.788);
+  border-radius: 0.4rem;
+  background: white;
+  margin: 0.5rem;
+  padding: 0.2rem;
+}
+.radio-label {
+  position: relative;
+  left: 40%;
+}
+.input-radio {
+  position: relative;
+  right: 40%;
+  -ms-transform: scale(1.2); /* IE */
+  -moz-transform: scale(1.2); /* FF */
+  -webkit-transform: scale(1.2); /* Safari and Chrome */
+  -o-transform: scale(1.2); /* Opera */
+}
+.element_name {
+  width: 30%;
+  float: left;
+}
+.element_value {
+  width: 65%;
+  float: left;
+  vertical-align: center;
+  text-align: center;
+}
+.mandatory input {
+  border: 2px solid rgb(236, 182, 182);
+}
+.mandatory td {
+  color: rgb(248, 72, 72);
+}
+.btn-confirm {
+  width: 60%;
+  background: #28a745;
+  border: #28a745;
+  cursor: pointer;
+}
+.alert {
+  font-size: 0.8rem;
+}
+.alert-text {
+  color: red;
+}
+.btn-validate {
+  width: 60%;
+  background: #007bff;
+  border-color: #007bff;
+  color: rgb(255, 255, 255);
+}
+.input-radio:active {
+  border: 1px solid transparent;
+}
+.alert .radios {
+  background: red;
+}
+.selected {
+  background: #e5f6ea;
+}
+select:focus {
+  outline: none !important;
+}

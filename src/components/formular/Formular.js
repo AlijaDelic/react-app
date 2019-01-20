@@ -1,62 +1,37 @@
 import React, { Component } from "react";
-import "./formular.css";
 import SelectFormular from "./SelectFormular";
 
 class Formular extends Component {
-  state = {
-    versions: this.props.versions,
-    version: {
-      name: "",
-      values: {}
-    },
-    formulars: this.props.formulars,
-    selectedFormular: "",
-    selectedVersion: ""
-  };
-
-  setVersionName = e => {
+  constructor(props) {
+    super(props);
+    this.state = {
+      formulars: this.props.formulars,
+      versions: this.props.versions
+    };
+  }
+  //click on load button version
+  loadVersion = (versionName, formularName) => {
+    let search = { name: formularName + "version:" + versionName };
+    let selectedVersion = this.state.versions.filter(
+      version => version.name === search.name
+    );
     this.setState(prevState => ({
-      version: {
-        ...prevState.version,
-        name: e
+      selectedVersion: {
+        ...prevState.selectedVersion,
+        name: selectedVersion
       }
     }));
   };
-
-  handleSelect = e => {
-    const select = this.state.formulars.filter(formular => formular.name === e);
-    this.setState({ selectedFormular: select, selectedVersion: "" });
-  };
-
-  loadVersion = (formularName, version) => {
-    const srch = formularName + " version " + version.value;
-    const filteredVersion = this.state.versions.filter(
-      version => version.name === srch
-    );
-
-    if (filteredVersion[0]) {
-      this.setState({
-        selectedVersion: filteredVersion,
-        selectedFormular: ""
-      });
-    } else {
-      alert("No result to show!");
-    }
-  };
-
+  //when tab formular is choosen, this component recives all formulars and versions
+  // and render the form
   render() {
-    const { saveVersion } = this.props;
+    const { insertIntoDb } = this.props;
     return (
       <div>
         <SelectFormular
           formulars={this.state.formulars}
-          selectedFormular={this.state.selectedFormular}
-          handleSelect={this.handleSelect}
-          version={this.state.version}
-          setVersionName={this.setVersionName}
-          saveVersion={saveVersion}
-          loadVersion={this.loadVersion}
-          selectedVersion={this.state.selectedVersion}
+          insertIntoDb={insertIntoDb}
+          versions={this.state.versions}
         />
       </div>
     );

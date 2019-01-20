@@ -1,189 +1,164 @@
 import React, { Component } from "react";
-import "./admin.css";
 import SearchRow from "./SearchRow";
 import TblRow from "./TblRow";
-import TblResuls from "./TblResults";
 
 class Admin extends Component {
-  state = {
-    count: 0,
-    defaultValues: {
-      element: 0,
-      elementValue: "",
-      options: ["Text", "Number", "Checkbox", "Radio"],
-      selectedOption: "Text",
-      radioNumbers: 0,
-      radioValues: [],
-      validations: ["Mandatory", "None"],
-      selectedValidation: "Mandatory"
-    },
-    formular: {
-      name: "",
-      values: []
-    },
-    result: ""
-  };
-
-  setFormularName = e => {
-    const search = this.props.formulars.filter(formular => formular.name === e);
-    if (search) {
-      this.setState({
-        result: search
-      });
-    }
-
-    this.setState(prevState => ({
+  constructor(props) {
+    super(props);
+    this.state = {
+      formulars: this.props.formulars,
       formular: {
-        ...prevState.formular,
-        name: e
-      }
-    }));
-  };
-
-  handleElementValue = e => {
-    this.setState(prevState => ({
-      defaultValues: {
-        ...prevState.defaultValues,
-        elementValue: e
-      }
-    }));
-  };
-
-  handleChangeOptions = e => {
-    this.setState(prevState => ({
-      defaultValues: {
-        ...prevState.defaultValues,
-        selectedOption: e
-      }
-    }));
-  };
-
-  handleRadioNumbers = e => {
-    this.setState(prevState => ({
-      defaultValues: {
-        ...prevState.defaultValues,
-        radioNumbers: e
-      }
-    }));
-  };
-
-  handleValidation = e => {
-    this.setState(prevState => ({
-      defaultValues: {
-        ...prevState.defaultValues,
-        selectedValidation: e
-      }
-    }));
-  };
-
-  renderRadioInputs = number => {
-    let tableRow = [];
-    for (let i = 0; i < number; i++) {
-      let children = [];
-      for (let j = 0; j < 1; j++) {
-        children.push(
-          <td className="tbl-cell-1">
-            <input
-              type="text"
-              value={this.state.defaultValues.radioValues[i]}
-              placeholder="Label"
-              key={i}
-              onChange={e => {
-                this.state.defaultValues.radioValues[i] = e.target.value;
-              }}
-            />
-          </td>
-        );
-      }
-      tableRow.push(<tr className="tbl-row-1">{children}</tr>);
-    }
-    return tableRow;
-  };
-
-  newRow = () => {
-    const newData = {
-      element: this.state.count + 1,
-      elementValue: this.state.defaultValues.elementValue,
-      options: this.state.defaultValues.options,
-      selectedOption: this.state.defaultValues.selectedOption,
-      radioNumbers: this.state.defaultValues.radioNumbers,
-      radioValues: this.state.defaultValues.radioValues,
-      validations: this.state.defaultValues.validations,
-      selectedValidation: this.state.defaultValues.selectedValidation
+        name: "",
+        values: [
+          {
+            element: 0,
+            elementName: "",
+            inputType: "Text",
+            validation: "None",
+            radioNumbers: 0,
+            radioValues: [{ id: 0, value: "" }]
+          }
+        ]
+      },
+      changeDidHappen: false
     };
-    const updatedData = [...this.state.formular.values, newData];
+  }
 
+  //Set formular name
+  setFormularName = formularName => {
+    let check = this.state.formulars.some(
+      formular => formular.name === formularName
+    );
+    if (check) {
+      let newFormular = this.state.formulars.filter(
+        formular => formular.name === formularName
+      );
+      this.setState({ formular: newFormular[0], loaded: true });
+    } else {
+      this.setState(prevState => ({
+        formular: {
+          ...prevState.formular,
+          name: formularName,
+          values: [
+            {
+              id: 0,
+              elementName: "",
+              inputType: "Text",
+              validation: "None",
+              radioNumbers: 0,
+              radioValues: []
+            }
+          ]
+        }
+      }));
+      this.setState({ loaded: false });
+    }
+  };
+
+  //on adding new row to the table
+  confirmRow = values => {
+    let index = this.state.formular.values.length - 1;
+    const newValues = {
+      id: this.state.formular.values[index].id + 1,
+      elementName: values.elementName,
+      inputType: values.inputType,
+      validation: values.validation,
+      radioNumbers: values.radioNumbers,
+      radioValues: values.radioValues
+    };
+    const updatedValues = [...this.state.formular.values, newValues];
     this.setState(prevState => ({
       formular: {
         ...prevState.formular,
-        values: updatedData
+        values: updatedValues
       }
     }));
-
     this.setState({
-      count: this.state.count + 1,
-      defaultValues: {
-        element: 0,
-        elementValue: "",
-        options: ["Text", "Number", "Checkbox", "Radio"],
-        selectedOption: "Text",
-        radioNumbers: 0,
-        radioValues: [],
-        validations: ["Mandatory", "None"],
-        selectedValidation: "Mandatory"
-      }
+      added: false,
+      changeDidHappen: true
     });
+  };
+  //update row
+  updateComponent = value => {
+    this.setState({
+      changeDidHappen: true
+    });
+    let sortedValues = this.state.formular.values.filter(
+      val => val.id !== value.id
+    );
+    let newValues = [...sortedValues, value];
+    newValues.sort(function(a, b) {
+      return parseInt(a.id) - parseInt(b.id);
+    });
+    this.setState(prevState => ({
+      formular: {
+        ...prevState.formular,
+        values: newValues
+      }
+    }));
   };
 
   render() {
-    const { saveFormular } = this.props;
+    const { updateDatabase, addtoDB, formulars } = this.props;
 
     return (
-      <div className="main">
-        <SearchRow formularName={this.setFormularName} />
+      <div>
+        {/* show search row, the first one */}
+        <SearchRow
+          formularName={this.setFormularName}
+          formulars={this.state.formulars}
+        />
 
-        {this.state.formular.name && (
-          <TblRow
-            key={this.state.id}
-            defaultValues={this.state.defaultValues}
-            handleElementValue={this.handleElementValue}
-            handleChangeOptions={this.handleChangeOptions}
-            handleRadioNumbers={this.handleRadioNumbers}
-            renderRadioInputs={this.renderRadioInputs}
-            handleValidation={this.handleValidation}
-            newRow={this.newRow}
-          />
-        )}
-
-        <table className="tbl-res">
+        <table className="tbl-admin-results">
           <tbody>
-            {this.state.result != ""
-              ? this.state.result[0].values.map(value => {
-                  return <TblResuls key={value.element} values={value} />;
-                })
-              : null}
-          </tbody>
-        </table>
+            {/* add new row */}
+            {this.state.formular.name.length > 0 &&
+              this.state.formular.values.map((value, index) => (
+                <TblRow
+                  id={index}
+                  confirmRow={this.confirmRow}
+                  key={index}
+                  values={value}
+                  setElementName={this.setElementName}
+                  updateComponent={this.updateComponent}
+                />
+              ))}
 
-        <table className="tbl-res">
-          <tbody>
-            {this.state.formular.values.map(value => {
-              return <TblResuls key={value.element} values={value} />;
-            })}
-            {this.state.count > 0 ? (
-              <tr>
+            {/* add button */}
+            {this.state.search === true && this.state.formularExist === true && (
+              <tr className="tbl-row-admin">
+                <td colSpan="5">
+                  <button className="update">Update</button>
+                </td>
+              </tr>
+            )}
+            {this.state.formular.values.length > 1 &&
+              this.state.loaded === false && (
+                <tr className="tbl-row-admin">
+                  <td colSpan="5">
+                    <button
+                      onClick={() => addtoDB("Formular", this.state.formular)}
+                      className="save"
+                    >
+                      Save
+                    </button>
+                  </td>
+                </tr>
+              )}
+            {this.state.loaded === true && this.state.changeDidHappen && (
+              <tr className="tbl-row-admin">
                 <td colSpan="5">
                   <button
-                    onClick={() => {
-                      saveFormular(this.state.formular);
-                    }}
-                    id="submit"
+                    onClick={() =>
+                      updateDatabase("Formular", this.state.formular)
+                    }
+                    className="update"
                   >
-                    Submit
+                    Update
                   </button>
                 </td>
               </tr>
-            ) : null}
+            )}
           </tbody>
         </table>
       </div>

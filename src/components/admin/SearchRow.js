@@ -1,7 +1,13 @@
 import React, { Component } from "react";
-import "./searchRow.css";
 
 class SearchRow extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      search: ""
+    };
+  }
+
   render() {
     const { formularName } = this.props;
     return (
@@ -9,10 +15,10 @@ class SearchRow extends Component {
         <tbody>
           <tr className="tbl-row-search">
             <td className="tbl-cell">Formular name:</td>
-            <td className="tbl-cell">
+            <td className="tbl-cell search-container">
               <input
                 className="search-input"
-                ref={formName => (this.formularName = formName)}
+                onChange={e => this.setState({ search: e.target.value })}
                 type="text"
                 placeholder="Enter formular name"
               />
@@ -20,9 +26,9 @@ class SearchRow extends Component {
             <td className="tbl-cell">
               <button
                 onClick={() => {
-                  formularName(this.formularName.value);
+                  formularName(this.state.search);
                 }}
-                className="btn"
+                className="btn-search"
               >
                 Search
               </button>
